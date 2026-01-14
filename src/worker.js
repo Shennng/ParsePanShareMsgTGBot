@@ -93,7 +93,15 @@ function parseMessage(text, entities = []) {
  * @returns {string} 格式化后的字符串
  */
 function formatResult(parsedData) {
-  return `资源名称：${parsedData.name}\n资源标签：${parsedData.tags}\n资源描述：${parsedData.description}\n资源链接：${parsedData.link}`;
+  let result = `资源名称：${parsedData.name}\n资源标签：${parsedData.tags}\n资源描述：${parsedData.description}\n资源链接：${parsedData.link}`;
+
+  // 检测是否为 Telegram bot 链接
+  if (parsedData.link && parsedData.link.match(/https?:\/\/t\.me\/\w+(\?start=)?/i)) {
+    result += '\n\n💡 提示：检测到这是一个 Telegram 机器人链接\n';
+    result += '请点击链接获取机器人响应，然后将响应消息转发给我，我会帮你提取真实的资源链接。';
+  }
+
+  return result;
 }
 
 /**
