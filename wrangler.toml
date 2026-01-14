@@ -1,18 +1,18 @@
 name = "parsepansharemsgtgbot"
-main = "worker.js"
+main = "src/worker.js"
 compatibility_date = "2024-01-01"
 
 # 环境变量
 [vars]
-# BOT_TOKEN 将通过 wrangler secret 命令单独设置
+# TELEGRAM_BOT_TOKEN 将通过 wrangler secret 命令单独设置
 
 # 开发环境配置
 [env.dev]
-name = "telegram-resource-parser-bot-dev"
+name = "parsepansharemsgtgbot"
 
 # 生产环境配置
 [env.production]
-name = "telegram-resource-parser-bot"
+name = "parsepansharemsgtgbot"
 
 # Workers 配置
 # 免费计划限制：每天 100,000 请求
