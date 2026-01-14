@@ -158,11 +158,13 @@ function getHelpMessage() {
 async function handleUpdate(update, env) {
   const botToken = env.TELEGRAM_BOT_TOKEN;
 
-  if (!update.message) {
+  // 支持普通消息和频道帖子
+  const message = update.message || update.channel_post;
+
+  if (!message) {
     return new Response('OK', { status: 200 });
   }
 
-  const message = update.message;
   const chatId = message.chat.id;
 
   // 处理命令
@@ -181,9 +183,12 @@ async function handleUpdate(update, env) {
   }
 
   // 处理普通消息（忽略命令）
-  if (message.text && !message.text.startsWith('/')) {
-    const messageText = message.text;
-    const entities = message.entities || [];
+  // 支持 text 和 caption（用于带媒体的消息）
+  const messageText = message.text || message.caption;
+
+  if (messageText && !messageText.startsWith('/')) {
+    // 获取消息实体（支持 text 和 caption 的实体）
+    const entities = message.entities || message.caption_entities || [];
 
     // 解析消息
     const parsedData = parseMessage(messageText, entities);
