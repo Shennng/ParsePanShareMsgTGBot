@@ -5,7 +5,7 @@
 
 // 从环境变量获取配置
 const config = {
-  BOT_TOKEN: '', // 将在 wrangler.toml 中配置
+  TELEGRAM_BOT_TOKEN: '', // 将在 wrangler.toml 中配置
   WEBHOOK_SECRET: '', // 可选：用于验证 webhook 请求
 };
 
@@ -156,7 +156,7 @@ function getHelpMessage() {
  * @param {Object} env - 环境变量
  */
 async function handleUpdate(update, env) {
-  const botToken = env.BOT_TOKEN;
+  const botToken = env.TELEGRAM_BOT_TOKEN;
 
   if (!update.message) {
     return new Response('OK', { status: 200 });
